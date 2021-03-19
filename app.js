@@ -41,7 +41,9 @@ function getTasks() {
                 <div class="card-body">
                     <h5 class="card-title">${title}</h5>
                     <p class="card-text">${description}</p>
-                    <a class="btn btn-danger" onclick="deleteTask('${title}')" >Borrar</a>
+                    <a class="btn btn-sm btn-danger" onclick="deleteTask('${title}')" ><span class="icon-bin"></span></a>
+                    <a class="btn btn-sm  btn-warning" onclick="editarTask('${title},${description}')"><span class="icon-pencil"></span></a>
+                    <a class="btn btn-sm  btn-secondary" onclick="checkTask('${title}')" ><span class="icon-checkbox-checked"></span></span></a>
                 </div>
             </div>
         </div>`
