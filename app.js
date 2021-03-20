@@ -41,10 +41,10 @@ function mostrarNotas() {
                 <div class="card-body">
                     <h5 class="card-title">${nota.titulo}</h5>
                     <p class="card-text">${nota.descripcion}</p>
-                    <button onclick="mostrarDetalle('${nota.id}')" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalle">Ver detalle</button>
-                    <button onclick="eliminarNota('${nota.id}')" type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                    <button onclick="cargarModalEditar('${nota.id}')" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modalEditar">Editar</button>
+                    <button onclick="mostrarDetalle('${nota.id}')" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="far fa-sticky-note"></i></button>
+                    <button onclick="eliminarNota('${nota.id}')" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                    <button onclick="cargarModalEditar('${nota.id}')" type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar"><i class="fas fa-edit"></i></button>
                     </div>
             </div>
         </div>`;
