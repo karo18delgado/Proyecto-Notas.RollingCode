@@ -10,7 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://i.icomoon.io/public/temp/3dcdaa54bc/UntitledProject/style.css">
     <title>Tasks App</title>
 </head>
 
@@ -24,20 +23,20 @@
 
 
     <!--Navbar-->
-    
+
     <nav class="navbar navbar-light bg-navbar">
         <div class="container-fluid">
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-success" type="submit"><span class="icon-search"></span></button>
+                <button class="btn btn-success" type="submit">Buscar</button>
             </form>
-            <button type="button" class="btn btn-success nota " data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <span class="icon-plus"></span>
+            <button type="button" class="btn btn-success nota " data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Crear Nota
             </button>
         </div>
 
 
-    <!-- Modal -->
+        <!-- Modal Crear Nota -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -51,8 +50,8 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <textarea id="description" cols="30" rows="10" class="form-control"
-                                    placeholder="Nota"maxlength="500" ></textarea>
+                                <textarea id="description" cols="30" rows="10" class="form-control" placeholder="Nota"
+                                    maxlength="500"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -73,17 +72,64 @@
         <!-- <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"></p>
+                    <a class="btn btn-sm btn-danger">Eliminar</a>
+                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar">Editar</button>
+                    <a class="btn btn-sm  btn-secondary">CheckBox</a>
                 </div>
             </div>
         </div> -->
     </div>
 
+    <!-- Modal Detalle Nota-->
 
+    <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalle Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="formDetalle" class="modal-body">
+                    <!-- <p>Titulo</p>
+                    <p>Descripcion</p>
+                    <p>Fecha de nota</p> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal Editar Nota-->
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="notaEditar">
+                    <div class="modal-header">
+                        <div>
+                            <input type="text" id="tituloEditar" placeholder="Título" class="form-control" maxlength="60">
+                        </div>
 
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <textarea id="descripcionEditar" cols="30" rows="10" class="form-control" placeholder="Nota"
+                                maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
