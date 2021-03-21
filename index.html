@@ -26,17 +26,17 @@
 
     <nav class="navbar navbar-light bg-navbar">
         <div class="container-fluid">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <!-- <button class="btn btn-success" type="submit">Buscar</button> -->
-                <button class="btn btn-success"> <i class="fas fa-search"></i> </button>
-                
+            <form class="d-flex" id="formBusqueda">
+                <input id="busqueda" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-success"><i class="fas fa-search"></i></button>
+                <button class="btn btn-success mx-1" onclick="limpiar()" ><i class="fas fa-undo-alt"></i></button>
             </form>
             <button type="button" class="btn btn-success nota " data-bs-toggle="modal"
                 data-bs-target="#exampleModal"><i class="fas fa-plus"></i>
             </button>
         </div>
 
+        <div id="alertaBusqueda" class="alert alert-info d-none m-3">Sin resultados</div>
 
         <!-- Modal Crear Nota -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
