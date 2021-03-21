@@ -3,14 +3,17 @@ body {
     display: flex;
     flex-direction: column;
 }
-
-
+.borde{
+    border-color:#7fc9a0 ;
+}
+.texto{
+    color:whitesmoke ;
+}
 .bg-navbar {
-    background-color: #fdbb2d;
+    background-color:#72d27f;
 }
 .jumbo-color {
-    background: rgb(34, 193, 195);
-    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+    background-color: #199e54; 
     padding: 4rem 3rem;
 }
 

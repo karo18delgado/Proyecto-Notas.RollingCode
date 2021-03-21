@@ -36,8 +36,8 @@ function mostrarNotas() {
     for (let i = 0; i < notas.length; i++) {
         const nota = notas[i];
         const tr =
-            `<div class="col-sm-6">
-            <div class="card m-4">
+            `<div class="col-sm-6 ">
+            <div class="card m-4 borde border-4 ">
                 <div class="card-body">
                     <h5 class="card-title">${nota.titulo}</h5>
                     <p class="card-text">${nota.descripcion}</p>
