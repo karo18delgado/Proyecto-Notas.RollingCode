@@ -1,59 +1,151 @@
-document.getElementById("formTask").addEventListener("submit", saveTask);
+const formulario = document.getElementById('formTask');
+const tituloInput = document.getElementById('title');
+const descripcionInput = document.getElementById('description');
+const cardNotas = document.getElementById('tasks');
+const editarNotas = document.getElementById('notaEditar');
+const editarTitulo = document.getElementById('tituloEditar');
+const editarDescripcion = document.getElementById('descripcionEditar');
+const busquedaForm = document.getElementById('formBusqueda');
+const json = localStorage.getItem('notas');
+let notas = JSON.parse(json) || [];
+let NotaId = '';
 
-function saveTask(e) {
-    
-    let title =  document.getElementById("title").value;
-    let description = document.getElementById("description").value;
+function generarID() {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
 
-    const task = {
-        title,
-        description
-    };
-    if (localStorage.getItem("tasks") === null) {
-        let tasks = [];
-        tasks.push (task);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    } else {
-        let tasks = JSON.parse(localStorage.getItem("tasks"));
-        tasks.push(task);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-
-    getTasks();
+function submitFormulario (e)
+{
     e.preventDefault();
-}
-function getTasks() {
-    let tasks = JSON.parse(localStorage.getItem("tasks"));
-    let tasksView = document.getElementById("tasks");
+    const nota = {
+        id: generarID(),
+        titulo: tituloInput.value,
+        descripcion: descripcionInput.value,
+        registro: Date.now(),
+    };
+    notas.push(nota);
+    const json = JSON.stringify(notas);
+    localStorage.setItem('notas', json);
+    mostrarNotas()
+    formulario.reset();
+};
 
-    tasksView.innerHTML = "";
 
-    for (let i=0; i< tasks.length; i++) {
-        let title = tasks[i].title;
-        let description = tasks[i].description;
-        
-        tasksView.innerHTML += `<div class= "container">
-        <div class="row m-2">
-        <div class="col-sm">
-        <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">${title}</h5>
-        <p class="card-text">${description}</p>
-        <a class="btn btn-danger" onclick="deleteTask('${title}')" >Borrar</a>
-        </div>
-        </div>
-        </div>
-        </div>`
+function mostrarNotas() {
+    let filas = [];
+    for (let i = 0; i < notas.length; i++) {
+        const nota = notas[i];
+        const tr =
+            `<div class="col-sm-6 ">
+            <div class="card m-4 borde border-2 ">
+                <div class="card-body">
+                    <h5 class="card-title">${nota.titulo}</h5>
+                    <p class="card-text">${nota.descripcion}</p>
+                    <button onclick="mostrarDetalle('${nota.id}')" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetalle"><i class="far fa-sticky-note"></i></button>
+                    <button onclick="eliminarNota('${nota.id}')" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                    <button onclick="cargarModalEditar('${nota.id}')" type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar"><i class="fas fa-edit"></i></button>
+                    </div>
+            </div>
+        </div>`;
+        filas.push(tr);
     }
+    cardNotas.innerHTML = filas.join('');
 }
-function deleteTask(title) {
-let tasks = JSON.parse (localStorage.getItem("tasks")) ;
-for (let i=0; i<tasks.length; i++) {
-    if (tasks[i].title == title) {
-        tasks.splice(i,1);
+mostrarNotas();
+
+function mostrarDetalle(id) {
+    const notaEncontrada = notas.find((nota) => nota.id === id);
+    const detalleDiv = document.getElementById('formDetalle');
+    const fecha = new Date(notaEncontrada.registro);
+    console.log('mostrarDetalle - fecha', fecha);
+    const detallesNotas = `
+        <p>Titulo: ${notaEncontrada.titulo}</p>
+        <p>Descripcion: ${notaEncontrada.descripcion}</p>
+        <p>Fecha de nota: ${fecha.toLocaleString()}</p>
+    `;
+    detalleDiv.innerHTML = detallesNotas;
+}
+
+function eliminarNota(id) {
+    
+    let notasFiltradas = [];
+    for (let i = 0; i < notas.length; i++) {
+        const nota = notas[i];
+        const coincideId = nota.id === id;
+        if (!coincideId) {
+            notasFiltradas.push(nota);
+        }
     }
+    const json = JSON.stringify(notasFiltradas);
+    localStorage.setItem('notas', json);
+    notas = notasFiltradas;
+    mostrarNotas();
 }
-localStorage.setItem("tasks", JSON.stringify(tasks));
-getTasks();
+
+function cargarModalEditar(id) {
+    const notaEncontrada = notas.find((nota) => nota.id === id);
+    editarTitulo.value = notaEncontrada.titulo;
+    editarDescripcion.value = notaEncontrada.descripcion;
+    notaId = notaEncontrada.id;
 }
-getTasks();
+
+function editarNota(e) {
+    e.preventDefault();
+    const notasModificadas = notas.map((nota) => {
+        if (nota.id === notaId) {
+            const notasModificadas = {
+                ...nota,
+                titulo: editarTitulo.value,
+                descripcion: editarDescripcion.value,
+            };
+            return notasModificadas;
+        } else {
+            return nota;
+        }
+    });
+
+    const json = JSON.stringify(notasModificadas);
+    localStorage.setItem('notas', json);
+    notas = notasModificadas;
+    mostrarNotas();
+    const modalDiv = document.getElementById('modalEditar');
+    const modalBootstrap = bootstrap.Modal.getInstance(modalDiv);
+    modalBootstrap.hide();
+};
+
+const submitBusqueda = (e) => {
+    e.preventDefault();
+    const notasBase = JSON.parse(localStorage.getItem('notas')) || [];
+    const busquedaInput = document.getElementById('busqueda');
+    const termino = busquedaInput.value.toLowerCase();
+    const notasFiltradas =notasBase.filter((nota) => {
+        const terminoEnMinuscula = nota.titulo.toLowerCase();
+        return terminoEnMinuscula.includes(termino);
+    });
+
+    
+    notas = notasFiltradas;
+    mostrarNotas();
+    const alerta = document.getElementById('alertaBusqueda');
+    if (notasFiltradas.length === 0) {
+        alerta.classList.remove('d-none');
+    } else {
+        alerta.classList.add('d-none');
+    }
+};
+
+const limpiar = () => {
+    notas = JSON.parse(localStorage.getItem('notas')) || [];
+    busquedaForm.reset();
+    mostrarNotas();
+    const alerta = document.getElementById('alertaBusqueda');
+    alerta.classList.add('d-none');
+}
+mostrarNotas();
+formulario.onsubmit = submitFormulario;
+editarNotas.onsubmit = editarNota;
+busquedaForm.onsubmit = submitBusqueda;
