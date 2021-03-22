@@ -123,8 +123,9 @@ const submitBusqueda = (e) => {
     const busquedaInput = document.getElementById('busqueda');
     const termino = busquedaInput.value.toLowerCase();
     const notasFiltradas =notasBase.filter((nota) => {
-        const terminoEnMinuscula = nota.titulo.toLowerCase();
-        return terminoEnMinuscula.includes(termino);
+        const tituloEnMinuscula = nota.titulo.toLowerCase();
+        const descripcionEnMinuscula = nota.descripcion.toLowerCase();
+        return tituloEnMinuscula.includes(termino) || descripcionEnMinuscula.includes(termino);
     });
 
     
