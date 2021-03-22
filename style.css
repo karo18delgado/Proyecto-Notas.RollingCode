@@ -8,6 +8,7 @@ body {
 }
 .texto{
     color:whitesmoke ;
+    font-family: 'Fredoka One', cursive;
 }
 .bg-navbar {
     background-color:#72d27f;
